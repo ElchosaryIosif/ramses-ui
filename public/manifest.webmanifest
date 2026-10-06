@@ -1,0 +1,27 @@
+{
+  "name": "Ramses Bazaar",
+  "short_name": "Ramses Bazaar",
+  "description": "Boho · Ethnic · Hippie gift store — Καλαμάτα, από το 1996",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#18100A",
+  "theme_color": "#18100A",
+  "lang": "el",
+  "dir": "ltr",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Διαχείριση",
+      "short_name": "Admin",
+      "description": "Πρόσθεσε ή επεξεργάσου προϊόντα",
+      "url": "/#admin",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}
