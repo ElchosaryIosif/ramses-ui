@@ -226,7 +226,7 @@ export const OrderModal = () => {
                   marginBottom: '0.5rem',
                 }}
               >
-                Η ΠΑΡΑΓΓΕΛΙΑ ΣΤΑΛΗΚΕ!
+                Η ΠΑΡΑΓΓΕΛΙΑ ΣΤΑΛΘΗΚΕ!
               </h2>
               <p style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: '1.5rem', lineHeight: 1.7 }}>
                 Λάβαμε την παραγγελία σας και θα επικοινωνήσουμε σύντομα για επιβεβαίωση.
