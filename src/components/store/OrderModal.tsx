@@ -79,17 +79,6 @@ export const OrderModal = () => {
     );
   };
 
-  const whatsappLink = () => {
-    const lines = items.map((c) => `• ${c.name} ×${c.qty} — €${(c.price * c.qty).toFixed(2)}`);
-    const text = [
-      'Γεια σας! Μόλις έστειλα παραγγελία από το ramsesbazaar.com:',
-      ...lines,
-      `Σύνολο: €${total.toFixed(2)}`,
-      `Όνομα: ${form.name}`,
-    ].join('\n');
-    return `https://wa.me/${settings.whatsapp.replace(/[^\d]/g, '')}?text=${encodeURIComponent(text)}`;
-  };
-
   const close = () => {
     closeOrder();
     if (confirmed) clear();
@@ -242,11 +231,6 @@ export const OrderModal = () => {
               <p style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: '1.5rem', lineHeight: 1.7 }}>
                 Λάβαμε την παραγγελία σας και θα επικοινωνήσουμε σύντομα για επιβεβαίωση.
               </p>
-              {settings.whatsapp ? (
-                <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="btn-phone">
-                  💬 <span>Στείλτε την παραγγελία και στο WhatsApp</span>
-                </a>
-              ) : null}
               <div
                 style={{
                   background: 'var(--dark3)',
