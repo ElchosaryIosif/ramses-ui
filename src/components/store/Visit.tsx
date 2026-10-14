@@ -2,37 +2,7 @@ import { useState } from 'react';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { useSettings } from '../../store/useSettings';
 import { useLang } from '../../store/useLang';
-import { t } from '../../i18n/translations';
-
-const POLICIES_GR = [
-  {
-    title: '🚚 Αποστολή & Παράδοση',
-    body: [
-      'Αποστέλλουμε με <strong>ACS Courier</strong> σε όλη την Ελλάδα.',
-      '• Κόστος αποστολής: <strong>€3.50</strong>',
-      '• <strong>Δωρεάν αποστολή</strong> για παραγγελίες άνω των €50',
-      '• Παράδοση: <strong>2–4 εργάσιμες ημέρες</strong>',
-      '• Η παραγγελία επεξεργάζεται μετά την επιβεβαίωση πληρωμής',
-    ],
-  },
-  {
-    title: '↩ Επιστροφές & Αλλαγές',
-    body: [
-      'Σύμφωνα με την ευρωπαϊκή νομοθεσία, έχετε δικαίωμα επιστροφής εντός <strong>14 ημερολογιακών ημερών</strong> από την παραλαβή.',
-      '• Τα προϊόντα πρέπει να είναι αχρησιμοποίητα και στην αρχική τους συσκευασία',
-      '• Τα έξοδα επιστροφής βαρύνουν τον αγοραστή',
-      '• Επικοινωνήστε μαζί μας πριν οποιαδήποτε επιστροφή',
-    ],
-  },
-  {
-    title: '💳 Πληρωμή',
-    body: [
-      'Αποδεχόμαστε αποκλειστικά <strong>τραπεζική μεταφορά</strong> (κατάθεση).',
-      'Μετά την ολοκλήρωση της παραγγελίας θα λάβετε τα τραπεζικά στοιχεία.',
-      '• Παρακαλούμε στείλτε αντίγραφο κατάθεσης για άμεση εξυπηρέτηση',
-    ],
-  },
-];
+import { POLICIES, t } from '../../i18n/translations';
 
 export const Visit = () => {
   const ref = useScrollReveal<HTMLElement>();
@@ -91,7 +61,7 @@ export const Visit = () => {
           <p className="section-eyebrow">{t('policies', lang)}</p>
           <div className="divider" style={{ margin: '0 0 1rem' }} />
           <div className="policy-list">
-            {POLICIES_GR.map((p, i) => {
+            {POLICIES[lang].map((p, i) => {
               const open = openIdx === i;
               return (
                 <div className="policy-item" key={i}>

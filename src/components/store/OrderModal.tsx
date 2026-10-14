@@ -3,6 +3,8 @@ import { useCart, cartTotals } from '../../store/useCart';
 import { useUI } from '../../store/useUI';
 import { useSettings } from '../../store/useSettings';
 import { api } from '../../services/api';
+import { useLang } from '../../store/useLang';
+import { t, tf } from '../../i18n/translations';
 
 interface FormState {
   name: string;
@@ -21,6 +23,7 @@ export const OrderModal = () => {
   const items = useCart((s) => s.items);
   const clear = useCart((s) => s.clear);
   const settings = useSettings((s) => s.settings);
+  const lang = useLang((s) => s.lang);
 
   const [form, setForm] = useState<FormState>(empty);
   const [error, setError] = useState('');
@@ -46,11 +49,11 @@ export const OrderModal = () => {
 
   const onSubmit = async () => {
     if (!form.name || !form.phone || !form.email || !form.address) {
-      setError('⚠ Συμπλήρωσε όλα τα υποχρεωτικά πεδία.');
+      setError(t('err_required', lang));
       return;
     }
     if (!form.email.includes('@')) {
-      setError('⚠ Βάλε έγκυρο email.');
+      setError(t('err_email', lang));
       return;
     }
     setError('');
@@ -72,10 +75,10 @@ export const OrderModal = () => {
     }
     setError(
       res.error === 'unavailable_product'
-        ? '⚠ Κάποιο προϊόν του καλαθιού δεν είναι πλέον διαθέσιμο. Αφαίρεσέ το και δοκίμασε ξανά.'
+        ? t('err_unavailable', lang)
         : res.status === 0
-          ? '⚠ Δεν υπάρχει σύνδεση. Έλεγξε το internet και ξαναδοκίμασε.'
-          : '⚠ Η παραγγελία δεν στάλθηκε. Δοκίμασε ξανά ή επικοινώνησε μαζί μας τηλεφωνικά.'
+          ? t('err_offline', lang)
+          : t('err_failed', lang)
     );
   };
 
@@ -91,7 +94,7 @@ export const OrderModal = () => {
         {!confirmed ? (
           <>
             <div className="modal-header">
-              <h2 className="modal-title">ΟΛΟΚΛΗΡΩΣΗ ΠΑΡΑΓΓΕΛΙΑΣ</h2>
+              <h2 className="modal-title">{t('order_title', lang)}</h2>
               <button type="button" className="btn-close" onClick={close} aria-label="Close">
                 ✕
               </button>
@@ -126,7 +129,7 @@ export const OrderModal = () => {
                     borderTop: '1px solid var(--border)',
                   }}
                 >
-                  <span style={{ fontFamily: "'Cinzel', serif", color: 'var(--sand)' }}>Σύνολο</span>
+                  <span style={{ fontFamily: "'Cinzel', serif", color: 'var(--sand)' }}>{t('total_label', lang)}</span>
                   <span style={{ fontFamily: "'Cinzel', serif", color: 'var(--gold)' }}>
                     €{(subtotal + shipping).toFixed(2)}
                   </span>
@@ -144,17 +147,17 @@ export const OrderModal = () => {
               />
               <div className="form-grid">
                 <div className="form-group full">
-                  <label className="form-label">Ονοματεπώνυμο *</label>
+                  <label className="form-label">{t('f_name', lang)}</label>
                   <input
                     ref={nameRef}
                     className="form-input"
-                    placeholder="Γιώργος Παπαδόπουλος"
+                    placeholder={t('f_name_ph', lang)}
                     value={form.name}
                     onChange={update('name')}
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Τηλέφωνο *</label>
+                  <label className="form-label">{t('f_phone', lang)}</label>
                   <input
                     className="form-input"
                     type="tel"
@@ -174,20 +177,20 @@ export const OrderModal = () => {
                   />
                 </div>
                 <div className="form-group full">
-                  <label className="form-label">Διεύθυνση αποστολής *</label>
+                  <label className="form-label">{t('f_address', lang)}</label>
                   <input
                     className="form-input"
-                    placeholder="Οδός Αρ., Πόλη, ΤΚ"
+                    placeholder={t('f_address_ph', lang)}
                     value={form.address}
                     onChange={update('address')}
                   />
                 </div>
                 <div className="form-group full">
-                  <label className="form-label">Σχόλια / Παρατηρήσεις</label>
+                  <label className="form-label">{t('f_notes', lang)}</label>
                   <textarea
                     className="form-textarea"
                     style={{ minHeight: 60 }}
-                    placeholder="Ειδικές οδηγίες, χρώμα, μέγεθος…"
+                    placeholder={t('f_notes_ph', lang)}
                     value={form.notes}
                     onChange={update('notes')}
                   />
@@ -203,7 +206,7 @@ export const OrderModal = () => {
                 disabled={submitting}
                 style={{ marginBottom: 0 }}
               >
-                {submitting ? 'Αποστολή…' : 'Αποστολή Παραγγελίας →'}
+                {submitting ? t('sending', lang) : t('submit_order', lang)}
               </button>
             </div>
           </>
@@ -226,10 +229,10 @@ export const OrderModal = () => {
                   marginBottom: '0.5rem',
                 }}
               >
-                Η ΠΑΡΑΓΓΕΛΙΑ ΣΤΑΛΘΗΚΕ!
+                {t('order_sent', lang)}
               </h2>
               <p style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: '1.5rem', lineHeight: 1.7 }}>
-                Λάβαμε την παραγγελία σας και θα επικοινωνήσουμε σύντομα για επιβεβαίωση.
+                {t('order_sent_body', lang)}
               </p>
               <div
                 style={{
@@ -250,14 +253,14 @@ export const OrderModal = () => {
                     marginBottom: '0.75rem',
                   }}
                 >
-                  ΤΡΑΠΕΖΙΚΗ ΜΕΤΑΦΟΡΑ
+                  {t('bank_transfer', lang)}
                 </p>
                 <div className="bank-row">
-                  <span className="bank-label">Τράπεζα</span>
-                  <span className="bank-val">{settings.bank || 'Επικοινωνήστε μαζί μας'}</span>
+                  <span className="bank-label">{t('bank', lang)}</span>
+                  <span className="bank-val">{settings.bank || t('bank_contact', lang)}</span>
                 </div>
                 <div className="bank-row">
-                  <span className="bank-label">Δικαιούχος</span>
+                  <span className="bank-label">{t('beneficiary', lang)}</span>
                   <span className="bank-val">{settings.accountName || '—'}</span>
                 </div>
                 <div className="bank-row">
@@ -270,13 +273,15 @@ export const OrderModal = () => {
                   </span>
                 </div>
                 <div className="bank-row" style={{ borderBottom: 'none', paddingBottom: 0 }}>
-                  <span className="bank-label">Ποσό</span>
+                  <span className="bank-label">{t('amount', lang)}</span>
                   <span
                     className="bank-val"
                     style={{ fontFamily: "'Cinzel', serif", color: 'var(--gold)', fontSize: '1.1rem' }}
                   >
                     €{total.toFixed(2)}
-                    {shipping > 0 ? ` (συμπ. €${shipping.toFixed(2)} αποστολή)` : ' (δωρεάν αποστολή 🎉)'}
+                    {shipping > 0
+                      ? tf('incl_shipping', lang, { amount: `€${shipping.toFixed(2)}` })
+                      : t('free_shipping_paren', lang)}
                   </span>
                 </div>
               </div>
@@ -297,7 +302,7 @@ export const OrderModal = () => {
                     textTransform: 'uppercase',
                   }}
                 >
-                  Αναλυτικά:
+                  {t('details', lang)}
                 </strong>
                 <br />
                 {items.map((c) => (
@@ -307,15 +312,15 @@ export const OrderModal = () => {
                 ))}
               </div>
               <p style={{ fontSize: '0.72rem', color: 'var(--muted)', lineHeight: 1.6 }}>
-                Στείλτε αντίγραφο μεταφοράς στο{' '}
+                {t('send_receipt_to', lang)}{' '}
                 <strong style={{ color: 'var(--sand)' }}>{settings.email || settings.phone || '—'}</strong>
                 <br />
-                μετά την πληρωμή για άμεση επεξεργασία.
+                {t('send_receipt_after', lang)}
               </p>
             </div>
             <div className="modal-footer">
               <button type="button" className="btn-order" style={{ marginBottom: 0 }} onClick={close}>
-                ← Κλείσιμο
+                {t('close', lang)}
               </button>
             </div>
           </>

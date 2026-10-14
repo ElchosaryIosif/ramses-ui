@@ -1,10 +1,13 @@
-export const AboutStrip = () => (
-  <div className="about-strip">
-    <div className="divider" />
-    <blockquote>
-      "Από το 1996 φέρνουμε αντικείμενα με ψυχή από όλο τον κόσμο στην Καλαμάτα — ethnic, boho, hippie και πάντα κάτι
-      μοναδικό."
-    </blockquote>
-    <p className="about-since">✦ Χειροποίητα · Ethnic · Μοναδικά ✦</p>
-  </div>
-);
+import { useLang } from '../../store/useLang';
+import { t } from '../../i18n/translations';
+
+export const AboutStrip = () => {
+  const lang = useLang((s) => s.lang);
+  return (
+    <div className="about-strip">
+      <div className="divider" />
+      <blockquote>{t('strip_quote', lang)}</blockquote>
+      <p className="about-since">{t('strip_since', lang)}</p>
+    </div>
+  );
+};

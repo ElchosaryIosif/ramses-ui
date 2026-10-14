@@ -67,18 +67,14 @@ export const Shop = ({ initialFilter }: Props) => {
         {products.length === 0 ? (
           <div className="empty-store">
             <div className="empty-icon">🏺</div>
-            <h3>Η συλλογή ετοιμάζεται…</h3>
-            <p>
-              Σύντομα θα βρείτε εδώ μοναδικά
-              <br />
-              boho & ethnic αντικείμενα από όλο τον κόσμο.
-            </p>
+            <h3>{t('shop_empty_title', lang)}</h3>
+            <p dangerouslySetInnerHTML={{ __html: t('shop_empty_body', lang) }} />
           </div>
         ) : filtered.length === 0 ? (
           <div className="empty-store">
             <div className="empty-icon">🔍</div>
-            <h3>Δεν βρέθηκαν προϊόντα</h3>
-            <p>Δοκίμασε άλλη κατηγορία.</p>
+            <h3>{t('shop_none_title', lang)}</h3>
+            <p>{t('shop_none_body', lang)}</p>
           </div>
         ) : (
           filtered.map((p, i) => <ProductCard key={p.id} product={p} delayMs={(i % 4) * 80} />)

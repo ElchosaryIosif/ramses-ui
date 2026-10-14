@@ -2,7 +2,7 @@ import { useCart, cartTotals } from '../../store/useCart';
 import { useUI } from '../../store/useUI';
 import { useSettings } from '../../store/useSettings';
 import { useLang } from '../../store/useLang';
-import { CAT_ICONS, t } from '../../i18n/translations';
+import { CAT_ICONS, t, tf } from '../../i18n/translations';
 import { FREE_SHIPPING_AT } from '../../services/shipping';
 import { mediaUrl } from '../../services/api';
 
@@ -21,9 +21,7 @@ export const CartDrawer = () => {
   const shippingMsg =
     subtotal >= FREE_SHIPPING_AT
       ? t('free_unlocked', lang)
-      : lang === 'en'
-        ? `Add <strong>€${(FREE_SHIPPING_AT - subtotal).toFixed(2)}</strong> more for free shipping`
-        : `Προσθέστε <strong>€${(FREE_SHIPPING_AT - subtotal).toFixed(2)}</strong> για δωρεάν αποστολή`;
+      : tf('free_progress', lang, { amount: `€${(FREE_SHIPPING_AT - subtotal).toFixed(2)}` });
 
   const fillPct = subtotal >= FREE_SHIPPING_AT ? 100 : Math.round((subtotal / FREE_SHIPPING_AT) * 100);
 
@@ -32,18 +30,14 @@ export const CartDrawer = () => {
       <div className={`cart-overlay${open ? ' open' : ''}`} onClick={closeCart} />
       <div className={`cart-drawer${open ? ' open' : ''}`}>
         <div className="drawer-header">
-          <span className="drawer-title">ΤΟ ΚΑΛΑΘΙ ΣΑΣ</span>
+          <span className="drawer-title">{t('cart_title', lang)}</span>
           <button type="button" className="btn-close" onClick={closeCart} aria-label="Close">
             ✕
           </button>
         </div>
         <div className="cart-items-list">
           {items.length === 0 ? (
-            <div className="cart-empty-msg">
-              Το καλάθι σας είναι άδειο.
-              <br />
-              Ανακαλύψτε κάτι μοναδικό ✦
-            </div>
+            <div className="cart-empty-msg" dangerouslySetInnerHTML={{ __html: t('cart_empty', lang) }} />
           ) : (
             items.map((c) => (
               <div className="cart-item" key={c.id}>
@@ -69,8 +63,8 @@ export const CartDrawer = () => {
                   type="button"
                   className="btn-remove"
                   onClick={() => remove(c.id)}
-                  title="Αφαίρεση"
-                  aria-label="Remove"
+                  title={t('cart_remove', lang)}
+                  aria-label={t('cart_remove', lang)}
                 >
                   ✕
                 </button>
@@ -88,16 +82,14 @@ export const CartDrawer = () => {
             </div>
             <div className="shipping-row">
               <span className="shipping-label">{t('shipping_label', lang)}</span>
-              <span className="shipping-val">
-                {shipping === 0 ? (lang === 'en' ? 'FREE 🎉' : 'ΔΩΡΕΑΝ 🎉') : `€${shipping.toFixed(2)}`}
-              </span>
+              <span className="shipping-val">{shipping === 0 ? t('free', lang) : `€${shipping.toFixed(2)}`}</span>
             </div>
             <div className="cart-total-row">
               <span className="ct-label">{t('total_label', lang)}</span>
               <span className="ct-val">€{total.toFixed(2)}</span>
             </div>
             <button type="button" className="btn-order" onClick={openOrder}>
-              ✦ Αποστολή Παραγγελίας
+              {t('place_order', lang)}
             </button>
             <a href={`tel:+${settings.whatsapp}`} className="btn-phone">
               📞 <span>{settings.phone}</span>

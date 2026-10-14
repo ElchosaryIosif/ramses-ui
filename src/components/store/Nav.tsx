@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useCart, cartTotals } from '../../store/useCart';
 import { useUI } from '../../store/useUI';
 import { useLang } from '../../store/useLang';
-import { LANG_META } from '../../i18n/translations';
+import { LANG_META, t } from '../../i18n/translations';
 import type { Lang } from '../../types';
 
 const LANGS: { code: Lang; label: string }[] = [
@@ -45,7 +45,7 @@ export const Nav = () => {
         <img src="/logo.jpg" alt="Ramses Bazaar" />
         <span className="nav-logo-text">
           RAMSES BAZAAR
-          <small>ΚΑΛΑΜΆΤΑ · EST. 1996</small>
+          <small>{t('nav_city', lang)} · EST. 1996</small>
         </span>
       </a>
       <div className="nav-actions">
