@@ -6,7 +6,14 @@ export const Footer = () => {
     <footer className="site-footer">
       <img className="footer-logo-img" src="/logo.jpg" alt="Ramses Bazaar" />
       <div className="footer-logo">RAMSES BAZAAR</div>
-      <div className="footer-addr">{settings.address} · Greece 24100</div>
+      <a
+        className="footer-addr"
+        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${settings.address}, Greece`)}`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        📍 {settings.address} · Greece
+      </a>
       <div className="footer-links">
         <a href="https://www.instagram.com/ramsesbazaar" target="_blank" rel="noreferrer">
           Instagram
@@ -16,10 +23,7 @@ export const Footer = () => {
         </a>
         <a href={`tel:+${settings.whatsapp}`}>📞 {settings.phone}</a>
       </div>
-      <div className="footer-copy">© 2026 Ramses Bazaar · Designed with ✦</div>
-      <a href="#admin" className="footer-admin-link">
-        admin
-      </a>
+      <div className="footer-copy">© 2026 Ramses Bazaar</div>
     </footer>
   );
 };
