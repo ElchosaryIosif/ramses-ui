@@ -1,21 +1,24 @@
 import { useLang } from '../../store/useLang';
-import { t } from '../../i18n/translations';
+import { catName, t } from '../../i18n/translations';
+import type { Category } from '../../types';
+
+const HERO_CATS: Category[] = ['jewelry', 'clothes', 'home', 'incense', 'collectibles'];
 
 export const Hero = () => {
   const lang = useLang((s) => s.lang);
   return (
     <section className="hero">
-      <p className="hero-eyebrow">✦ Gift Store · Καλαμάτα · Μεσσηνία ✦</p>
+      <p className="hero-eyebrow">{t('hero_eyebrow', lang)}</p>
       <h1 className="hero-title">
         RAMSES<span>BAZAAR</span>
       </h1>
-      <p className="hero-subtitle">Boho · Ethnic · Hippie · από το 1996</p>
+      <p className="hero-subtitle">Boho · Ethnic · Hippie · {t('hero_since', lang)}</p>
       <div className="hero-tags">
-        <span className="hero-tag">Κοσμήματα</span>
-        <span className="hero-tag">Ρούχα</span>
-        <span className="hero-tag">Home Decor</span>
-        <span className="hero-tag">Incense</span>
-        <span className="hero-tag">Collectibles</span>
+        {HERO_CATS.map((c) => (
+          <span key={c} className="hero-tag">
+            {catName(c, lang)}
+          </span>
+        ))}
       </div>
       <a
         href="#shop"
@@ -27,7 +30,7 @@ export const Hero = () => {
       >
         {t('cta_browse', lang)}
       </a>
-      <p className="hero-location">📍 Στοά Λόντου · Καλαμάτα · Greece 24100</p>
+      <p className="hero-location">{t('hero_location', lang)}</p>
     </section>
   );
 };
