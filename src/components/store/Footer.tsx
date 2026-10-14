@@ -4,6 +4,7 @@ export const Footer = () => {
   const settings = useSettings((s) => s.settings);
   return (
     <footer className="site-footer">
+      <img className="footer-logo-img" src="/logo.jpg" alt="Ramses Bazaar" />
       <div className="footer-logo">RAMSES BAZAAR</div>
       <div className="footer-addr">{settings.address} · Greece 24100</div>
       <div className="footer-links">
