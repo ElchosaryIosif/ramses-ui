@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { STORAGE_KEYS } from '../services/storage';
 import { api, type AdminStatus, type SessionGrant } from '../services/api';
+import { markOwner } from '../services/analytics';
 
 interface StoredSession {
   token: string;
@@ -80,6 +81,7 @@ export const useAuth = create<AuthState>((set, get) => ({
 
   adopt: ({ token, exp, status }, remember) => {
     saveSession({ token, exp }, remember);
+    markOwner();
     set({ token, status, expired: false });
   },
 

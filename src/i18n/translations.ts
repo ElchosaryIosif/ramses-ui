@@ -419,6 +419,15 @@ export const T = dict({
     de: 'nach der Zahlung für eine schnelle Bearbeitung.',
     es: 'después del pago para un procesamiento rápido.',
   },
+  consent_text: {
+    gr: 'Χρησιμοποιούμε cookies του Google Analytics για να δούμε πώς χρησιμοποιείται το κατάστημα και να το βελτιώσουμε. Δεν τα χρησιμοποιούμε για διαφημίσεις.',
+    en: 'We use Google Analytics cookies to see how the shop is used and make it better. We don’t use them for ads.',
+    fr: 'Nous utilisons les cookies de Google Analytics pour comprendre l’utilisation de la boutique et l’améliorer. Pas de publicité.',
+    de: 'Wir verwenden Cookies von Google Analytics, um zu sehen, wie der Shop genutzt wird, und ihn zu verbessern. Nicht für Werbung.',
+    es: 'Usamos cookies de Google Analytics para ver cómo se usa la tienda y mejorarla. No las usamos para publicidad.',
+  },
+  consent_accept: { gr: 'Αποδοχή', en: 'Accept', fr: 'Accepter', de: 'Akzeptieren', es: 'Aceptar' },
+  consent_decline: { gr: 'Απόρριψη', en: 'Decline', fr: 'Refuser', de: 'Ablehnen', es: 'Rechazar' },
   close: { gr: '← Κλείσιμο', en: '← Close', fr: '← Fermer', de: '← Schließen', es: '← Cerrar' },
 });
 

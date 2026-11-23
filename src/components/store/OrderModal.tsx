@@ -3,6 +3,7 @@ import { useCart, cartTotals } from '../../store/useCart';
 import { useUI } from '../../store/useUI';
 import { useSettings } from '../../store/useSettings';
 import { api } from '../../services/api';
+import { track } from '../../services/analytics';
 import { useLang } from '../../store/useLang';
 import { t, tf } from '../../i18n/translations';
 
@@ -70,9 +71,13 @@ export const OrderModal = () => {
     });
     setSubmitting(false);
     if (res.ok) {
+      track.purchase(res.data.id, items, res.data.total, res.data.shipping);
       setConfirmed(true);
       return;
     }
+    track.orderFailed(
+      res.error === 'unavailable_product' ? 'unavailable_product' : res.status === 0 ? 'offline' : 'server'
+    );
     setError(
       res.error === 'unavailable_product'
         ? t('err_unavailable', lang)

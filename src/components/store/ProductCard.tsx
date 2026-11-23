@@ -5,6 +5,7 @@ import { useCart } from '../../store/useCart';
 import { useUI } from '../../store/useUI';
 import { useLang } from '../../store/useLang';
 import { mediaUrl } from '../../services/api';
+import { track } from '../../services/analytics';
 
 interface Props {
   product: Product;
@@ -20,6 +21,7 @@ export const ProductCard = memo(({ product, delayMs }: Props) => {
   const onAdd = () => {
     if (!product.stock) return;
     add(product);
+    track.addToCart(product);
     setAdded(true);
     window.setTimeout(() => setAdded(false), 1300);
   };
@@ -42,7 +44,10 @@ export const ProductCard = memo(({ product, delayMs }: Props) => {
             src={mediaUrl(product.image)}
             alt={product.name}
             loading="lazy"
-            onClick={() => openLightbox(product.id)}
+            onClick={() => {
+              openLightbox(product.id);
+              track.viewItem(product);
+            }}
             style={{ cursor: 'zoom-in' }}
           />
         ) : (

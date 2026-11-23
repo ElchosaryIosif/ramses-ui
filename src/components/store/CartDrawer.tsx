@@ -5,6 +5,7 @@ import { useLang } from '../../store/useLang';
 import { CAT_ICONS, t, tf } from '../../i18n/translations';
 import { FREE_SHIPPING_AT } from '../../services/shipping';
 import { mediaUrl } from '../../services/api';
+import { track } from '../../services/analytics';
 
 export const CartDrawer = () => {
   const items = useCart((s) => s.items);
@@ -62,7 +63,10 @@ export const CartDrawer = () => {
                 <button
                   type="button"
                   className="btn-remove"
-                  onClick={() => remove(c.id)}
+                  onClick={() => {
+                    remove(c.id);
+                    track.removeFromCart(c);
+                  }}
                   title={t('cart_remove', lang)}
                   aria-label={t('cart_remove', lang)}
                 >
@@ -88,7 +92,14 @@ export const CartDrawer = () => {
               <span className="ct-label">{t('total_label', lang)}</span>
               <span className="ct-val">€{total.toFixed(2)}</span>
             </div>
-            <button type="button" className="btn-order" onClick={openOrder}>
+            <button
+              type="button"
+              className="btn-order"
+              onClick={() => {
+                openOrder();
+                track.beginCheckout(items, total);
+              }}
+            >
               {t('place_order', lang)}
             </button>
             <a href={`tel:+${settings.whatsapp}`} className="btn-phone">

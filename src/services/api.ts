@@ -10,7 +10,7 @@ import type { Product, Settings } from '../types';
  */
 declare global {
   interface Window {
-    __RUNTIME_CONFIG__?: { API_BASE?: string };
+    __RUNTIME_CONFIG__?: { API_BASE?: string; GA_ID?: string };
   }
 }
 

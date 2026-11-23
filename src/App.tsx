@@ -9,6 +9,7 @@ import { PasswordGate } from './components/admin/PasswordGate';
 import { Toast } from './components/common/Toast';
 import { Lightbox } from './components/common/Lightbox';
 import { BackToTop } from './components/common/BackToTop';
+import { ConsentBanner } from './components/common/ConsentBanner';
 
 export const App = () => {
   const [route, navigate] = useHashRoute();
@@ -35,6 +36,7 @@ export const App = () => {
       <Toast />
       <Lightbox />
       {route !== 'admin' && <BackToTop />}
+      {route !== 'admin' && <ConsentBanner />}
     </>
   );
 };
