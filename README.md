@@ -44,6 +44,14 @@ same origin.
 docker run -p 8080:80 -e API_BASE=https://api.ramsesbazaar.com ghcr.io/elchosaryiosif/ramses-ui
 ```
 
+`GA_ID` (a GA4 measurement ID, `G-XXXXXXX`) turns on Google Analytics the same
+way. Without it there is no analytics and no cookie banner. With it, visitors see
+a consent banner and gtag.js loads only after they accept
+(`src/services/analytics.ts`). The shop sends the standard e-commerce events
+`view_item`, `add_to_cart`, `remove_from_cart`, `view_cart`, `begin_checkout`
+and `purchase`, plus `order_failed`. A browser that has logged into the admin
+panel is never tracked.
+
 ## Structure
 
 ```

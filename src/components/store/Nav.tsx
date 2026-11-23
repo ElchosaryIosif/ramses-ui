@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useCart, cartTotals } from '../../store/useCart';
 import { useUI } from '../../store/useUI';
 import { useLang } from '../../store/useLang';
+import { track } from '../../services/analytics';
 import { LANG_META, t } from '../../i18n/translations';
 import type { Lang } from '../../types';
 
@@ -71,7 +72,14 @@ export const Nav = () => {
             </div>
           )}
         </div>
-        <button type="button" className="btn-cart" onClick={openCart}>
+        <button
+          type="button"
+          className="btn-cart"
+          onClick={() => {
+            openCart();
+            track.viewCart(items, cartTotals(items).total);
+          }}
+        >
           🛒 <span>{count}</span>
         </button>
       </div>

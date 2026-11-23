@@ -421,6 +421,37 @@ body::before {
 .footer-links a { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; transition: color 0.2s; text-transform: uppercase; }
 .footer-links a:hover { color: var(--gold); }
 .footer-copy { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.12em; }
+.footer-cookie-btn {
+  background: none; border: none; padding: 0;
+  font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.footer-cookie-btn:hover { color: var(--gold); }
+
+/* Cookie consent: above the nav and back-to-top, below the basket and modals
+   so it never covers the order button. */
+.consent-banner {
+  position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 550;
+  max-width: 560px; margin: 0 auto;
+  background: var(--dark2); border: 1px solid var(--border2);
+  border-radius: 6px; box-shadow: var(--shadow);
+  padding: 1rem 1.1rem;
+  display: flex; flex-direction: column; gap: 0.85rem;
+  animation: fadeIn 0.25s ease;
+}
+.consent-text { font-size: 0.8rem; color: var(--sand2); line-height: 1.6; }
+.consent-actions { display: flex; gap: 10px; justify-content: flex-end; }
+.consent-btn {
+  flex: 1 1 0; max-width: 160px;
+  background: transparent; color: var(--sand);
+  border: 1px solid var(--border2); border-radius: var(--radius);
+  padding: 10px 14px;
+  font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  transition: all 0.2s;
+}
+.consent-btn:hover { border-color: var(--gold); color: var(--gold); }
+.consent-btn.primary { background: var(--gold); color: var(--dark); border-color: var(--gold); font-weight: 600; }
+.consent-btn.primary:hover { background: var(--gold-light); color: var(--dark); }
 
 /* Admin */
 #admin-view { min-height: 100vh; background: var(--dark); padding: 0; }

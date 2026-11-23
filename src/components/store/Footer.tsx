@@ -1,7 +1,10 @@
 import { useSettings } from '../../store/useSettings';
+import { useUI } from '../../store/useUI';
+import { analyticsAvailable } from '../../services/analytics';
 
 export const Footer = () => {
   const settings = useSettings((s) => s.settings);
+  const openConsent = useUI((s) => s.openConsent);
   return (
     <footer className="site-footer">
       <img className="footer-logo-img" src="/logo.jpg" alt="Ramses Bazaar" />
@@ -22,6 +25,11 @@ export const Footer = () => {
           Facebook
         </a>
         <a href={`tel:+${settings.whatsapp}`}>📞 {settings.phone}</a>
+        {analyticsAvailable() && (
+          <button type="button" className="footer-cookie-btn" onClick={openConsent}>
+            Cookies
+          </button>
+        )}
       </div>
       <div className="footer-copy">© 2026 Ramses Bazaar</div>
     </footer>
