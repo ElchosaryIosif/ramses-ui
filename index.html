@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      Search and link-preview tags. nginx (SSI) replaces this block on product pages with the
+      product's own tags from the API; everywhere else, and in `npm run dev`, these are used.
+    -->
+    <!--# block name="seo_home" -->
     <title>Ramses Bazaar — Boho & Ethnic Gift Store | Καλαμάτα</title>
     <meta name="description" content="Ramses Bazaar, Καλαμάτα, από το 1996: boho, ethnic και hippie κοσμήματα, ρούχα, home decor, θυμιάματα και collectibles από τη Μέση Ανατολή, την Αίγυπτο και όλο τον κόσμο. Στοά Λόντου 1." />
     <meta name="keywords" content="ramses bazaar, kalamata, καλαμάτα, boho, ethnic, hippie, κοσμήματα, ρούχα, θυμιάματα, αιγυπτιακά, egyptian, middle east, gift store, στοά λόντου" />
@@ -24,6 +29,10 @@
     <meta name="twitter:description" content="Gift store από το 1996 στη Στοά Λόντου, Καλαμάτα. Κοσμήματα, ρούχα, home decor και θυμιάματα από τη Μέση Ανατολή, την Αίγυπτο και όλο τον κόσμο." />
     <meta name="twitter:image" content="https://ramsesbazaar.com/og-image.jpg" />
     <link rel="canonical" href="https://ramsesbazaar.com/" />
+    <!--# endblock -->
+    <!--# include virtual="/__seo$request_uri" stub="seo_home" -->
+    <!-- docker-entrypoint.sh replaces this with preconnect/preload hints for the API. -->
+    <!--api-hints-->
     <meta name="theme-color" content="#18100A" />
     <!-- Site icon for browser tabs, Google results and link previews. Google needs a square multiple of 48px. -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -65,13 +74,29 @@
       }
     </script>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // #root holds a pre-rendered page top in Greek: the nav plus the home hero, or on a product
+      // page the product (from the server). Keep it only where it matches what the app will show,
+      // so other pages and visitors who chose another language never see it flash by.
+      (function () {
+        var root = document.getElementById('root');
+        var path = location.pathname;
+        var lang;
+        try {
+          lang = JSON.parse(localStorage.getItem('rb_lang_v2')).state.lang;
+        } catch (e) {}
+        var matches = path === '/' || (/^\/p\/[^/]+\/?$/.test(path) && root.querySelector('.product-page'));
+        if (!matches || location.hash === '#admin' || (lang && lang !== 'gr')) {
+          root.innerHTML = '';
+        } else if (path === '/') {
+          // Show the hero at once (no fade-in), both now and when the app takes over.
+          document.documentElement.classList.add('handoff');
+        }
+      })();
+    </script>
     <script src="/runtime-config.js"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
