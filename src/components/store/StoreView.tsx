@@ -10,18 +10,19 @@ import { Footer } from './Footer';
 import { CartDrawer } from './CartDrawer';
 import { OrderModal } from './OrderModal';
 import { ProductPage } from './ProductPage';
+import { PoliciesPage } from './PoliciesPage';
 import { HOME_META, setPageMeta } from '../../services/pageMeta';
 import { useProducts } from '../../store/useProducts';
 import type { Category } from '../../types';
 
 interface Props {
-  /** Set on a product page (`/p/<slug>`); otherwise the shop's home page. */
-  productSlug?: string;
+  /** The home page, a product page (`/p/<slug>`) or shipping and returns (`/policies`). */
+  page: 'home' | 'policies' | { product: string };
 }
 
-export const StoreView = ({ productSlug }: Props) => {
+export const StoreView = ({ page }: Props) => {
   const [pickedCat, setPickedCat] = useState<Category | undefined>();
-  const home = productSlug === undefined;
+  const home = page === 'home';
   const hydrated = useProducts((s) => s.hydrated);
 
   useEffect(() => {
@@ -41,13 +42,15 @@ export const StoreView = ({ productSlug }: Props) => {
             <Visit />
             <Reviews />
           </>
+        ) : page === 'policies' ? (
+          <PoliciesPage />
         ) : (
-          <ProductPage slug={productSlug} />
+          <ProductPage slug={page.product} />
         )}
       </main>
       {/* On a product page, related products appear once the catalogue loads; adding the footer
           only then keeps it from being pushed down while someone is looking at it. */}
-      {(home || hydrated) && <Footer />}
+      {(page === 'home' || page === 'policies' || hydrated) && <Footer />}
       <CartDrawer />
       <OrderModal />
     </div>
