@@ -1,0 +1,19 @@
+{
+  "specVersion": "1.0",
+  "entries": [
+    {
+      "identifier": "urn:air:ramsesbazaar.com:shop:product-catalog",
+      "displayName": "Ramses Bazaar product catalogue",
+      "type": "application/xml",
+      "url": "https://ramsesbazaar.com/sitemap.xml",
+      "description": "Every product page of Ramses Bazaar, a boho, ethnic and hippie gift shop in Kalamata, Greece, since 1996: jewellery, clothes, home decor, incense and collectibles from Egypt, the Middle East and around the world. Each page has the price, stock and a photo, and orders ship across Greece.",
+      "representativeQueries": [
+        "boho jewellery shop in Kalamata",
+        "buy Egyptian incense online in Greece",
+        "ethnic and hippie gifts with delivery in Greece",
+        "Ramses Bazaar products and prices"
+      ],
+      "tags": ["shop", "gifts", "boho", "ethnic", "jewellery", "incense", "Kalamata", "Greece"]
+    }
+  ]
+}

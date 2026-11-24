@@ -1,6 +1,6 @@
 # ramses-ui
 
-The Ramses Bazaar shop and its admin panel (`/#admin`). The API it talks to is
+The Ramses Bazaar shop, its product pages (`/p/<slug>`) and its admin panel (`/#admin`). The API it talks to is
 [ramses-api](https://github.com/ElchosaryIosif/ramses-api); deployment is
 described in its [docs/deploy.md](https://github.com/ElchosaryIosif/ramses-api/blob/main/docs/deploy.md).
 
@@ -36,9 +36,10 @@ npm run docker:build   # scripts/docker.sh, reads .env.prod
 ## Runtime configuration
 
 The image is built once and pointed at an API when it starts:
-`docker-entrypoint.sh` writes `/runtime-config.js` from the container's `API_BASE`
-env var, and `src/services/api.ts` reads it. Empty means the API is on the
-same origin.
+`docker-entrypoint.sh` writes the runtime config from the container's `API_BASE`
+env var (inline in `index.html`, and as `/runtime-config.js`), and `src/services/api.ts`
+reads it. Empty means the API is on the same origin. The entrypoint also points nginx at
+the API for the sitemap and product page tags, and adds preconnect/preload hints for it.
 
 ```sh
 docker run -p 8080:80 -e API_BASE=https://api.ramsesbazaar.com ghcr.io/elchosaryiosif/ramses-ui
@@ -52,11 +53,33 @@ a consent banner and gtag.js loads only after they accept
 and `purchase`, plus `order_failed`. A browser that has logged into the admin
 panel is never tracked.
 
+## Product pages, search engines and speed
+
+- **Product pages.** Every product has its own address, `/p/<name>-<id>` (the slug comes from the
+  API). `src/services/router.ts` handles in-app navigation; an old address of a renamed product
+  still works and is replaced by the current one.
+- **What Google and link previews see.** nginx serves `index.html` with SSI. On a product page it
+  asks the API for the page's `<head>` tags (title, description, canonical, Open Graph, Product
+  structured data, a photo preload) and for its visible top part (photo, name, price), so the
+  product is there before any JavaScript runs. If the API can't be reached, the home page's tags
+  are used and the app renders the page as usual.
+- **Sitemap.** `/sitemap.xml` comes from the API and lists every product page;
+  `public/sitemap-static.xml` is the fallback.
+- **First paint.** `npm run build` pre-renders the nav and the home hero into `index.html`
+  (`src/prerender.tsx`, `scripts/prerender.mjs`). `main.tsx` waits until the browser has painted
+  it, then React takes over with identical markup. Fonts are self-hosted (`src/styles/fonts.css`),
+  the hero title's font is preloaded, Google Maps loads only on demand, and the admin panel is a
+  separate chunk.
+- **AI agents.** `/.well-known/ard.json` is an Agentic Resource Discovery manifest. Files that
+  don't exist are real 404s, never the app shell.
+
 ## Structure
 
 ```
 src/
-  App.tsx              hash router (#admin → admin panel) + hydration
+  App.tsx              routes (store, /p/<slug>, #admin → admin panel, loaded on demand)
+  main.tsx             start-up; takes over from the pre-rendered nav + hero
+  prerender.tsx        build-time render of the nav + hero (scripts/prerender.mjs)
   services/api.ts      API client, runtime API address, photo URLs
   store/               Zustand slices; useProducts keeps unsent admin edits in an
                        outbox so a flaky connection never loses work

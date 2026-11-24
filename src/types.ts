@@ -14,6 +14,8 @@ export interface Product {
   stock: boolean;
   image: string | null;
   createdAt: number;
+  /** Product page address after /p/, computed by the API. */
+  slug?: string;
 }
 
 export interface CartItem extends Product {

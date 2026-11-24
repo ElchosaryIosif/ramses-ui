@@ -1,4 +1,5 @@
 import { useSettings } from '../../store/useSettings';
+import { Logo } from '../common/Logo';
 import { useUI } from '../../store/useUI';
 import { analyticsAvailable } from '../../services/analytics';
 
@@ -7,7 +8,7 @@ export const Footer = () => {
   const openConsent = useUI((s) => s.openConsent);
   return (
     <footer className="site-footer">
-      <img className="footer-logo-img" src="/logo.jpg" alt="Ramses Bazaar" />
+      <Logo className="footer-logo-img" size={120} lazy />
       <div className="footer-logo">RAMSES BAZAAR</div>
       <a
         className="footer-addr"

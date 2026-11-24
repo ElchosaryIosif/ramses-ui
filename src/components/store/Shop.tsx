@@ -3,6 +3,7 @@ import { useProducts } from '../../store/useProducts';
 import { useLang } from '../../store/useLang';
 import { t } from '../../i18n/translations';
 import { ProductCard } from './ProductCard';
+import { useRevealCards } from '../../hooks/useRevealCards';
 import type { Category } from '../../types';
 
 type Filter = 'all' | Category;
@@ -30,14 +31,7 @@ export const Shop = ({ initialFilter }: Props) => {
   }, [initialFilter]);
 
   // Re-trigger reveal observer when filter changes / products change
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('visible')),
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll('.product-card.reveal').forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
-  }, [filter, products]);
+  useRevealCards([filter, products]);
 
   const filtered = useMemo(
     () => (filter === 'all' ? products : products.filter((p) => p.cat === filter)),

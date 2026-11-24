@@ -18,8 +18,8 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Fail the build on an invalid config rather than crash-looping at start-up.
-# __PORT__ is only filled in by the entrypoint, so test against the default.
-RUN sed 's/__PORT__/80/' /etc/nginx/conf.d/default.conf > /tmp/check.conf \
+# __PORT__ and __API_UPSTREAM__ are only filled in by the entrypoint, so test against defaults.
+RUN sed -e 's/__PORT__/80/' -e 's#__API_UPSTREAM__#http://127.0.0.1:9#g' /etc/nginx/conf.d/default.conf > /tmp/check.conf \
     && cp /etc/nginx/conf.d/default.conf /tmp/template.conf \
     && cp /tmp/check.conf /etc/nginx/conf.d/default.conf \
     && nginx -t \

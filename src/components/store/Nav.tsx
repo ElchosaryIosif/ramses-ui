@@ -5,6 +5,8 @@ import { useLang } from '../../store/useLang';
 import { track } from '../../services/analytics';
 import { LANG_META, t } from '../../i18n/translations';
 import type { Lang } from '../../types';
+import { Logo } from '../common/Logo';
+import { linkClick } from '../../services/router';
 
 const LANGS: { code: Lang; label: string }[] = [
   { code: 'gr', label: 'Ελληνικά' },
@@ -35,15 +37,8 @@ export const Nav = () => {
 
   return (
     <nav id="store-nav">
-      <a
-        className="nav-logo"
-        href="#"
-        onClick={(e) => {
-          e.preventDefault();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-      >
-        <img src="/logo.jpg" alt="Ramses Bazaar" />
+      <a className="nav-logo" href="/" onClick={linkClick('/')}>
+        <Logo size={36} />
         <span className="nav-logo-text">
           RAMSES BAZAAR
           <small>{t('nav_city', lang)} · EST. 1996</small>
