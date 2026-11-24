@@ -118,11 +118,11 @@ export const T = dict({
     es: 'Horario de apertura',
   },
   hours: {
-    gr: 'Δευ / Τετ / Σαβ: 08:30–14:00<br>Τρί / Πεμ / Παρ: 08:30–14:00 & 18:00–21:00<br>Κυριακή: Κλειστά',
-    en: 'Mon / Wed / Sat: 08:30–14:00<br>Tue / Thu / Fri: 08:30–14:00 & 18:00–21:00<br>Sunday: Closed',
-    fr: 'Lun / Mer / Sam : 08h30–14h00<br>Mar / Jeu / Ven : 08h30–14h00 & 18h00–21h00<br>Dimanche : Fermé',
-    de: 'Mo / Mi / Sa: 08:30–14:00<br>Di / Do / Fr: 08:30–14:00 & 18:00–21:00<br>Sonntag: Geschlossen',
-    es: 'Lun / Mié / Sáb: 08:30–14:00<br>Mar / Jue / Vie: 08:30–14:00 & 18:00–21:00<br>Domingo: Cerrado',
+    gr: 'Δευ / Τετ: 09:30–14:00<br>Τρί / Πεμ / Παρ: 09:30–14:00 & 18:00–21:00<br>Σάββατο: 09:30–14:30<br>Κυριακή: Κλειστά',
+    en: 'Mon / Wed: 09:30–14:00<br>Tue / Thu / Fri: 09:30–14:00 & 18:00–21:00<br>Saturday: 09:30–14:30<br>Sunday: Closed',
+    fr: 'Lun / Mer : 09h30–14h00<br>Mar / Jeu / Ven : 09h30–14h00 & 18h00–21h00<br>Samedi : 09h30–14h30<br>Dimanche : Fermé',
+    de: 'Mo / Mi: 09:30–14:00<br>Di / Do / Fr: 09:30–14:00 & 18:00–21:00<br>Samstag: 09:30–14:30<br>Sonntag: Geschlossen',
+    es: 'Lun / Mié: 09:30–14:00<br>Mar / Jue / Vie: 09:30–14:00 & 18:00–21:00<br>Sábado: 09:30–14:30<br>Domingo: Cerrado',
   },
   policies: { gr: 'ΠΟΛΙΤΙΚΕΣ', en: 'POLICIES', fr: 'POLITIQUES', de: 'RICHTLINIEN', es: 'POLÍTICAS' },
   reviews_title: {
