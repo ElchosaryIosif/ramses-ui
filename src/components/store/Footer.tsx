@@ -1,11 +1,15 @@
 import { useSettings } from '../../store/useSettings';
 import { Logo } from '../common/Logo';
+import { linkClick } from '../../services/router';
+import { useLang } from '../../store/useLang';
+import { t } from '../../i18n/translations';
 import { useUI } from '../../store/useUI';
 import { analyticsAvailable } from '../../services/analytics';
 
 export const Footer = () => {
   const settings = useSettings((s) => s.settings);
   const openConsent = useUI((s) => s.openConsent);
+  const lang = useLang((s) => s.lang);
   return (
     <footer className="site-footer">
       <Logo className="footer-logo-img" size={120} lazy />
@@ -26,6 +30,9 @@ export const Footer = () => {
           Facebook
         </a>
         <a href={`tel:+${settings.whatsapp}`}>📞 {settings.phone}</a>
+        <a href="/policies" onClick={linkClick('/policies')}>
+          {t('policies_title', lang)}
+        </a>
         {analyticsAvailable() && (
           <button type="button" className="footer-cookie-btn" onClick={openConsent}>
             Cookies

@@ -34,7 +34,9 @@ export const App = () => {
           {authed ? <AdminView onBack={leaveAdmin} /> : <PasswordGate onBack={leaveAdmin} />}
         </Suspense>
       ) : (
-        <StoreView productSlug={route.name === 'product' ? route.slug : undefined} />
+        <StoreView
+          page={route.name === 'product' ? { product: route.slug } : route.name === 'policies' ? 'policies' : 'home'}
+        />
       )}
       <Toast />
       <Lightbox />

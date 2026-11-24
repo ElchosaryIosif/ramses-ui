@@ -65,6 +65,9 @@ panel is never tracked.
   are used and the app renders the page as usual.
 - **Sitemap.** `/sitemap.xml` comes from the API and lists every product page;
   `public/sitemap-static.xml` is the fallback.
+- **Google Merchant Center.** `/products-feed.xml` (from the API) lists every product with a photo
+  for free Google Shopping listings. `/policies` (shipping, returns, payment, contact) is the
+  return-policy page Merchant Center links to.
 - **First paint.** `npm run build` pre-renders the nav and the home hero into `index.html`
   (`src/prerender.tsx`, `scripts/prerender.mjs`). `main.tsx` waits until the browser has painted
   it, then React takes over with identical markup. Fonts are self-hosted (`src/styles/fonts.css`),

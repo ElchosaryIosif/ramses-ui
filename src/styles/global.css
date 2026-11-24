@@ -1102,3 +1102,10 @@ body::before {
 
 /* The pre-rendered hero shows at once, and the app's identical hero replaces it without a fade. */
 .handoff .hero > * { animation: none; }
+
+/* Shipping & returns page (/policies) */
+.policies-page { max-width: 760px; }
+.policy-section { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.policy-section-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 600; color: var(--sand); letter-spacing: 0.08em; margin-bottom: 0.75rem; }
+.policy-section p { font-size: 0.9rem; line-height: 1.9; color: var(--sand2); }
+.policy-section a { color: var(--gold); }

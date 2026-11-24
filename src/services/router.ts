@@ -1,15 +1,16 @@
 /**
- * A small path router. The shop is `/`, a product is `/p/<slug>`, and the admin panel stays at
- * `/#admin`. Product pages are real addresses so Google can index each product and people can
+ * A small path router. The shop is `/`, a product is `/p/<slug>`, shipping and returns are
+ * `/policies`, and the admin panel stays at `/#admin`. Product pages are real addresses so Google can index each product and people can
  * share a link to one.
  */
 import { useSyncExternalStore } from 'react';
 import type { Product } from '../types';
 
-export type Route = { name: 'store' } | { name: 'product'; slug: string } | { name: 'admin' };
+export type Route = { name: 'store' } | { name: 'product'; slug: string } | { name: 'policies' } | { name: 'admin' };
 
 const parse = (): Route => {
   if (window.location.hash === '#admin') return { name: 'admin' };
+  if (/^\/policies\/?$/.test(window.location.pathname)) return { name: 'policies' };
   const m = window.location.pathname.match(/^\/p\/([^/]+)\/?$/);
   if (m) {
     try {

@@ -471,6 +471,21 @@ export const T = dict({
     de: 'Es wurde vielleicht verkauft oder entfernt. Entdecken Sie ähnliche Stücke in der Kollektion.',
     es: 'Puede que se haya vendido o retirado. Mira la colección para piezas similares.',
   },
+  policies_title: {
+    gr: 'Αποστολές & Επιστροφές',
+    en: 'Shipping & Returns',
+    fr: 'Livraison & Retours',
+    de: 'Versand & Rückgabe',
+    es: 'Envíos y Devoluciones',
+  },
+  policies_meta: {
+    gr: 'Αποστολή με ACS σε όλη την Ελλάδα σε 2–4 εργάσιμες, δωρεάν από 50€, επιστροφές εντός 14 ημερών και τρόποι πληρωμής στο Ramses Bazaar.',
+    en: 'Shipping with ACS across Greece in 2–4 business days, free from €50, 14-day returns and payment options at Ramses Bazaar.',
+    fr: 'Livraison ACS dans toute la Grèce en 2–4 jours ouvrés, gratuite dès 50 €, retours sous 14 jours et moyens de paiement chez Ramses Bazaar.',
+    de: 'Versand mit ACS in ganz Griechenland in 2–4 Werktagen, kostenlos ab 50 €, 14 Tage Rückgabe und Zahlungsarten bei Ramses Bazaar.',
+    es: 'Envío con ACS a toda Grecia en 2–4 días laborables, gratis desde 50 €, devoluciones en 14 días y formas de pago en Ramses Bazaar.',
+  },
+  contact_title: { gr: 'Επικοινωνία', en: 'Contact', fr: 'Contact', de: 'Kontakt', es: 'Contacto' },
   show_map: {
     gr: 'Δείτε τον χάρτη',
     en: 'Show the map',
